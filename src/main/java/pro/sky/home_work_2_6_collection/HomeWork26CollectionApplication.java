@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HomeWork26CollectionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HomeWork26CollectionApplication.class, args); //1
+        SpringApplication.run(HomeWork26CollectionApplication.class, args);
     }
 
 }
