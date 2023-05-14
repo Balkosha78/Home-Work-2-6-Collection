@@ -5,27 +5,39 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private final Integer salary;
+    private final Integer department;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, Integer salary, Integer department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salary = salary;
+        this.department = department;
     }
 
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
+    public static Integer getSalary() {
+        return salary;
+    }
+
+    public Integer getDepartment() {
+        return department;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        pro.sky.home_work_2_6_collection.Employee employee = (pro.sky.home_work_2_6_collection.Employee) o;
-        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        Employee employee = (Employee) o;
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(salary, employee.salary) && Objects.equals(department, employee.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, lastName, salary, department);
     }
 
     @Override
@@ -33,6 +45,8 @@ public class Employee {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", department=" + department +
                 '}';
     }
 }

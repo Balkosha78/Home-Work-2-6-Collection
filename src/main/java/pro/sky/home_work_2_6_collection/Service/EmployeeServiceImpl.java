@@ -9,7 +9,7 @@ import java.util.*;
 
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public abstract class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employees;
 
     public EmployeeServiceImpl() {
@@ -17,8 +17,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee add(String firstName, String lastName, Integer salary, Integer department) {
+        Employee employee = new Employee(firstName, lastName, salary, department);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("База переполнена");
         }
@@ -27,8 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee remove(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee remove(String firstName, String lastName, Integer salary, Integer department) {
+        Employee employee = new Employee(firstName, lastName, salary, department);
         if (employees.containsKey(employee.getFullName())) {
             return employees.put(employee.getFullName(), employee);
 
@@ -37,8 +37,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee find(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee find(String firstName, String lastName, Integer salary, Integer department) {
+        Employee employee = new Employee(firstName, lastName, salary, department);
         if (employees.containsKey(employee.getFullName())) {
             return employees.get(employee.getFullName());
         }
