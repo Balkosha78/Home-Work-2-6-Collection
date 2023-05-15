@@ -1,21 +1,16 @@
 package pro.sky.home_work_2_6_collection.Service;
-
 import org.springframework.stereotype.Service;
 import pro.sky.home_work_2_6_collection.Employee;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 @Service
-
 public class DepartmentServiceImpl implements DepartmentService{
     private final EmployeeService employeeService;
-
     public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
     @Override
     public Employee getEmployeeWithMaxSalary(Integer departmentId) {
         return employeeService.getAllEmployees().values().stream()
@@ -23,7 +18,6 @@ public class DepartmentServiceImpl implements DepartmentService{
                 .max(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
     }
-
     @Override
     public Employee getEmployeeWithMinSalary(Integer departmentId) {
         return employeeService.getAllEmployees().values().stream()
@@ -31,7 +25,6 @@ public class DepartmentServiceImpl implements DepartmentService{
                 .min(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
     }
-
     @Override
     public Map<Integer, List<Employee>> getGroupedByDepartmentEmployees(Integer departmentId) {
         return employeeService.getAllEmployees().values().stream()
