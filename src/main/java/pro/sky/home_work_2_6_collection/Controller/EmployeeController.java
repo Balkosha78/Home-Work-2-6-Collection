@@ -1,8 +1,10 @@
 package pro.sky.home_work_2_6_collection.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.home_work_2_6_collection.Controller.validator.EmployeeValidate;
 import pro.sky.home_work_2_6_collection.Employee;
 import pro.sky.home_work_2_6_collection.Service.EmployeeService;
 import java.util.Map;
@@ -10,13 +12,22 @@ import java.util.Map;
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private EmployeeValidate EmployeeValidator;
+
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
-                                @RequestParam("salary") Integer salary, @RequestParam("department") Integer department) {
-        return employeeService.add(firstName, lastName, salary, department);
+    public ResponseEntity<Employee> add(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("salary") Integer salary,
+            @RequestParam("department") Integer department){
+        if (EmployeeValidate.validate(firstName, lastName)){
+        return ResponseEntity.ok(employeeService.add(firstName,lastName, salary, department));
+    }else {
+            return ResponseEntity.badRequest().build();
+        }
     }
     @GetMapping("/remove")
     public void removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
